@@ -82,6 +82,15 @@ public class MySQLAccess {
 			throw e;
 		}
 	}
+	
+	public ResultSet getAllUsersFromTask() throws Exception {
+		try {
+			return connect.createStatement().executeQuery("select distinct PersonID from Task");
+		} catch(Exception e) {
+			close();
+			throw e;
+		}
+	}
 
 	public ResultSet getMostSimilarUsersWhoRatedMovie(String personId, String movieId, int k) throws Exception {
 		try {
@@ -150,6 +159,15 @@ public class MySQLAccess {
 	public ResultSet getAllEvaluationsForUser(int userId) throws Exception {
 		try {
 			return connect.createStatement().executeQuery("SELECT MovieID, Evaluation FROM `Train` WHERE PersonID=" + userId);
+		} catch(Exception e) {
+			close();
+			throw e;
+		}
+	}
+	
+	public ResultSet getAllMovieForUserFromTask(int userId) throws Exception {
+		try {
+			return connect.createStatement().executeQuery("SELECT MovieID FROM `Task` WHERE PersonID=" + userId);
 		} catch(Exception e) {
 			close();
 			throw e;
